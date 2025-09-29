@@ -13,9 +13,9 @@ jobs:
       - name: Generate firmware.json
         run: |
           echo '{
-            "version": "1.2.3",
+            "version": "1.0.0",
             "date": "'$(date +%Y-%m-%d)'",
-            "url": "https://github.com/kelvin/homio-updates/releases/download/v1.2.3/firmware-v1.2.3.bin",
+            "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.0/firmware-v1.0.0.bin",
             "checksum": "abc123def456..."
           }' > firmware.json
 
@@ -23,9 +23,9 @@ jobs:
         run: |
           git config --global user.name "homio-bot"
           git config --global user.email "homiobot3@gmail.com"
-          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/kelvin/homio-updates.git
+          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/kelwin13/homio-updates.git
           cp firmware.json homio-updates/
           cd homio-updates
           git add firmware.json
-          git commit -m "Update firmware metadata v1.2.3"
+          git commit -m "Update firmware metadata v1.0.0"
           git push
