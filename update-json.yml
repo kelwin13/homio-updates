@@ -6,17 +6,44 @@ on:
 jobs:
   push-firmware:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
 
+      - name: Get latest release version
+        id: latest
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/kelwin13/homio-updates/releases/latest | jq -r .tag_name)
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Verify firmware binary exists
+        run: |
+          BIN_FILE="firmware-v${{ steps.latest.outputs.version }}.bin"
+          if [ ! -f "$BIN_FILE" ]; then
+            echo "❌ Файл $BIN_FILE не знайдено."
+            exit 1
+          fi
+          if [ ! -s "$BIN_FILE" ]; then
+            echo "❌ Файл $BIN_FILE має нульовий розмір."
+            exit 1
+          fi
+
+      - name: Calculate checksum
+        id: checksum
+        run: |
+          CHECKSUM=$(sha256sum "firmware-v${{ steps.latest.outputs.version }}.bin" | cut -d ' ' -f1)
+          echo "checksum=$CHECKSUM" >> $GITHUB_OUTPUT
+
       - name: Generate firmware.json
         run: |
           echo '{
-            "version": "1.0.0",
+            "version": "'${{ steps.latest.outputs.version }}'",
             "date": "'$(date +%Y-%m-%d)'",
-            "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.0/firmware-v1.0.0.bin",
-            "checksum": "abc123def456..."
+            "url": "https://github.com/kelwin13/homio-updates/releases/download/v${{ steps.latest.outputs.version }}/firmware-v${{ steps.latest.outputs.version }}.bin",
+            "checksum": "'${{ steps.checksum.outputs.checksum }}'",
+            "notes": "Автоматичне оновлення прошивки"
           }' > firmware.json
 
       - name: Push to homio-updates
@@ -24,8 +51,21 @@ jobs:
           git config --global user.name "homio-bot"
           git config --global user.email "homiobot3@gmail.com"
           git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/kelwin13/homio-updates.git
+
           cp firmware.json homio-updates/
+          cp firmware-v${{ steps.latest.outputs.version }}.bin homio-updates/
+
+          if [ ! -f "homio-updates/firmware.json" ] || [ ! -f "homio-updates/firmware-v${{ steps.latest.outputs.version }}.bin" ]; then
+            echo "❌ Копіювання файлів не вдалося."
+            exit 1
+          fi
+
           cd homio-updates
-          git add firmware.json
-          git commit -m "Update firmware metadata v1.0.0"
-          git push
+          git add firmware.json firmware-v${{ steps.latest.outputs.version }}.bin
+          git commit -m "Update firmware metadata v${{ steps.latest.outputs.version }}" || echo "ℹ️ Немає змін для коміту"
+
+          echo "📦 Статус перед пушем:"
+          git status
+          git log -1
+
+          git push || (echo "❌ Push не вдався." && exit 1)
