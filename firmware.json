@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.5",
   "date": "2025-09-29",
-  "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.2.3/firmware-v1.2.3.bin",
+  "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.5/firmware-v1.0.5.bin",
   "checksum": "abc123def4567890",
   "notes": "Покращено стабільність OTA, оновлено драйвери"
 }
