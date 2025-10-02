@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Firmware version (якщо немає релізу)'
+        description: 'Firmware version (якщо немає релізу, введи вручну, напр. 1.0.0)'
         required: false
 
 jobs:
@@ -38,17 +38,20 @@ jobs:
             exit 1
           fi
 
-      - name: Verify firmware binary exists
+      - name: Verify firmware.bin exists
         run: |
-          BIN_FILE="firmware-v${{ steps.resolve.outputs.version }}.bin"
-          if [ ! -f "$BIN_FILE" ]; then
-            echo "❌ Файл $BIN_FILE не знайдено."
+          if [ ! -f "firmware.bin" ]; then
+            echo "❌ Файл firmware.bin не знайдено."
             exit 1
           fi
-          if [ ! -s "$BIN_FILE" ]; then
-            echo "❌ Файл $BIN_FILE має нульовий розмір."
+          if [ ! -s "firmware.bin" ]; then
+            echo "❌ Файл firmware.bin має нульовий розмір."
             exit 1
           fi
+
+      - name: Rename firmware with version
+        run: |
+          cp firmware.bin firmware-v${{ steps.resolve.outputs.version }}.bin
 
       - name: Calculate checksum
         id: checksum
@@ -63,6 +66,7 @@ jobs:
             "date": "'$(date +%Y-%m-%d)'",
             "url": "https://github.com/kelwin13/homio-updates/releases/download/v${{ steps.resolve.outputs.version }}/firmware-v${{ steps.resolve.outputs.version }}.bin",
             "checksum": "'${{ steps.checksum.outputs.checksum }}'",
+            "latest": true,
             "notes": "Автоматичне оновлення прошивки"
           }' > firmware.json
 
