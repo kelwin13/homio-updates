@@ -12,8 +12,17 @@
     "date": "2025-10-03",
     "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware-v1.0.11.bin",
     "checksum": "1acaa75246db30e2475d01b40ad2b16b69ebcb656451b475d3cee7c245faa905",
-    "latest": true,
+    "latest": false,
     "notes": "- Update publish-firmware.py\n- Delete scripts/publish-firmware.js\n- Update publish-firmware.py\n- Update build.yml\n- Update build.yml\n- Update publish-firmware.py\n- Create publish-firmware.py\n- Update build.yml\n- Update publish-firmware.js\n- Update publish-firmware.js\n- Update build.yml add temp folder\n- Update build.yml add check enable file to push",
     "factory_url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware.factory.bin"
+  },
+  {
+    "version": "1.0.12",
+    "date": "2025-10-03",
+    "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.12/firmware-v1.0.12.bin",
+    "checksum": "6b752acd7f50121dcbc4f848fcd32c4e71d5c4e14ba00d39f7f8c3212ab8a506",
+    "latest": true,
+    "notes": "- fix: Update publish-firmware.py\n- Fix: Update publish-firmware.py add version factory bin\n- Update publish-firmware.py\n- Delete scripts/publish-firmware.js\n- Update publish-firmware.py\n- Update build.yml\n- Update build.yml\n- Update publish-firmware.py\n- Create publish-firmware.py\n- Update build.yml\n- Update publish-firmware.js\n- Update publish-firmware.js\n- Update build.yml add temp folder\n- Update build.yml add check enable file to push",
+    "factory_url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.12/firmware.factory.bin"
   }
 ]
