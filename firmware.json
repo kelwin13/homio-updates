@@ -1,10 +1,19 @@
 [
- {
-  "version": "1.0.11",
-  "date": "2025-10-03",
-  "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware-v1.0.11.bin",
-  "checksum": "5652bda75342ab56441e1857ca48ddb9af452fe719c322deef733dc4439f88d1",
-  "latest": true,
-  "notes": "\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u0435 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438"
- }
+  {
+    "version": "1.0.11",
+    "date": "2025-10-03",
+    "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware-v1.0.11.bin",
+    "checksum": "5652bda75342ab56441e1857ca48ddb9af452fe719c322deef733dc4439f88d1",
+    "latest": false,
+    "notes": "\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u0435 \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438"
+  },
+  {
+    "version": "1.0.11",
+    "date": "2025-10-03",
+    "url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware-v1.0.11.bin",
+    "checksum": "1acaa75246db30e2475d01b40ad2b16b69ebcb656451b475d3cee7c245faa905",
+    "latest": true,
+    "notes": "- Update publish-firmware.py\n- Delete scripts/publish-firmware.js\n- Update publish-firmware.py\n- Update build.yml\n- Update build.yml\n- Update publish-firmware.py\n- Create publish-firmware.py\n- Update build.yml\n- Update publish-firmware.js\n- Update publish-firmware.js\n- Update build.yml add temp folder\n- Update build.yml add check enable file to push",
+    "factory_url": "https://github.com/kelwin13/homio-updates/releases/download/v1.0.11/firmware.factory.bin"
+  }
 ]
